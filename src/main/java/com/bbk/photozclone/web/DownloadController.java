@@ -1,5 +1,7 @@
-package com.bbk.photozclone;
+package com.bbk.photozclone.web;
 
+import com.bbk.photozclone.service.PhotozService;
+import com.bbk.photozclone.model.Photo;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,7 @@ public class DownloadController {
     }
 
     @GetMapping("/download/{id}")
-    public ResponseEntity<byte[]> download(@PathVariable String id) {
+    public ResponseEntity<byte[]> download(@PathVariable Integer id) {
 
         Photo photo = photozService.get(id);
         if (photo == null)

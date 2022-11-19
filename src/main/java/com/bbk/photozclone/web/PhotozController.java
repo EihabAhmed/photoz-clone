@@ -1,11 +1,12 @@
-package com.bbk.photozclone;
+package com.bbk.photozclone.web;
 
+import com.bbk.photozclone.service.PhotozService;
+import com.bbk.photozclone.model.Photo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
 
@@ -24,12 +25,12 @@ public class PhotozController {
     }
 
     @GetMapping("/photoz")
-    public Collection<Photo> get() {
+    public Iterable<Photo> get() {
         return photozService.get();
     }
 
     @GetMapping("/photoz/{id}")
-    public Photo get(@PathVariable String id) {
+    public Photo get(@PathVariable Integer id) {
         Photo photo = photozService.get(id);
         if (photo == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -37,10 +38,8 @@ public class PhotozController {
     }
 
     @DeleteMapping("/photoz/{id}")
-    public void delete(@PathVariable String id) {
-        Photo photo = photozService.remove(id);
-        if (photo == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    public void delete(@PathVariable Integer id) {
+        photozService.remove(id);
 
         /***********************************************/
 //        (async function deletePhoto(id) {
@@ -82,5 +81,3 @@ public class PhotozController {
 //        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 //    }
 }
-
-//39:30
